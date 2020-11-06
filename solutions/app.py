@@ -4,12 +4,11 @@ app = Flask(__name__)
 
 """A sample application to demonstrate the usage of HTML forms in Flask routes."""
 
-
 @app.route('/')
 def home():
     """Shows the homepage."""
     return """
-    <h1>Welcome to the Pizza Ordering Site!</h1>
+    <h1>Welcome to the Pizza Ordering Site!</h1> 
     <p>Please click on one of the following links.</p>
 
     <p><a href="/simple">Simple Ordering Form</a></p>
@@ -25,33 +24,22 @@ def simple_pizza_order():
     # TOOD: Change the form element below to include action="/simple_results" 
     # and method="POST"
 
-    # TODO: Render a form containing a text input asking the user for their
-    # favorit e pizza flavor, and a submit button.
-
-    < for = "fname" > First name: < /label >
-  <input type="text" id="fname" name="fname"><br><br>
-  <label for="lname">Last name:</label>
-  <input type="text" id="lname" name="lname"><br><br>
-  <input type="submit" value="Submit">
-    return "Not Yet Implemented"
     return """
-    <form>
+    <form action="/simple_results" method="GET">
     What's your favorite pizza flavor?
     <input type="text" name="pizza_flavor">
     <input type="submit" value="Submit">
     </form>
     """
 
-
 @app.route('/simple_results', methods=['GET', 'POST'])
 def simple_pizza_results():
     """Processes & shows results for a simple order form."""
 
-    # TODO: Use `request.args.get()` to retrieve the user's pizza flavor, then
+    # TODO: Use `request.args.get()` to retrieve the user's pizza flavor, then 
     # include it in the response.
-
-    return "Your order has been received!"
-
+    pizza_flavor = request.args.get('pizza_flavor')
+    return f"You ordered {pizza_flavor} pizza!"
 
 @app.route('/complex')
 def complex_pizza_order():
@@ -115,23 +103,21 @@ def complex_pizza_order():
     </form>
     """
 
-
 @app.route('/complex_results', methods=['GET', 'POST'])
 def complex_pizza_results():
     """Processes & shows results for a complex pizza order form."""
 
     # TODO: Uncomment the following lines to see the form key/value pairs
-    # print('------------------- REQUEST.ARGS -------------------------')
+    # print('------------------- REQUEST.ARGS -------------------------)
     # print(request.args)
-    # print('----------------------------------------------------------')
+    # print('----------------------------------------------------------)
 
-    users_email = request.args.get('email')  # TODO: Replace me!
-    users_phone = request.args.get('phone')  # TODO: Replace me!
-    crust_type = request.args.get('crust')  # TODO: Replace me!
-    pizza_size = request.args.get('size')  # TODO: Replace me!
+    users_email = request.args.get('email')
+    users_phone = request.args.get('phone')
+    crust_type = request.args.get('crust')
+    pizza_size = request.args.get('size')
     list_of_toppings = request.args.getlist('toppings')
-    accepted_terms = request.args.get(
-        'terms_conditions')  # TODO: Replace me!
+    accepted_terms = request.args.get('terms_conditions')
 
     if accepted_terms != 'accepted':
         return 'Please accept the terms and conditions and try again!'
@@ -144,7 +130,6 @@ def complex_pizza_results():
     You ordered a {crust_type} crust pizza of size {pizza_size}-inch
     with the following toppings: {', '.join(list_of_toppings)}
     """
-
 
 if __name__ == '__main__':
     app.run(debug=True)
